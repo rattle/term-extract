@@ -3,7 +3,7 @@ require 'rbtagger'
 # Based on :
 # http://pypi.python.org/pypi/topia.termextract/
 
-class TermExtractor
+class TermExtract
 
   @@SEARCH=0
   @@NOUN=1

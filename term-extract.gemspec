@@ -4,7 +4,7 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{term_extractor}
+  s.name = %q{term_extract}
   s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
@@ -20,10 +20,7 @@ Gem::Specification.new do |s|
     "README.markdown",
     "Rakefile",
     "VERSION",
-    "lib/term_extractor.rb",
-    "term_extractor.gemspec",
-    "test/test_helper.rb",
-    "test/test_term_extractor.rb"
+    "test/test_helper.rb"
   ]
   s.homepage = %q{}
   s.require_paths = ["lib"]
@@ -31,7 +28,7 @@ Gem::Specification.new do |s|
   s.summary = %q{Provides term extraction functionality}
   s.test_files = [
     "test/test_helper.rb",
-    "test/test_term_extractor.rb"
+    "test/test_term_extract.rb"
   ]
 
   if s.respond_to? :specification_version then

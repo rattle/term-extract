@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'helper'
 
-class TestTermExtractor < Test::Unit::TestCase
+class TestTermExtract < Test::Unit::TestCase
 
   @@DOC1 = <<DOC1
 The London Stock Exchange is a stock exchange located in London, United Kingdom.
@@ -82,7 +82,7 @@ SOURCE
   context "Without a default term extractor" do
 
     should "extract terms from a document" do
-      terms = TermExtractor.extract(@@DOCUMENT)
+      terms = TermExtract.extract(@@DOCUMENT)
       @@TERMS.each do |term|
         assert terms.keys.include?(term), "#{term} not found"
       end
@@ -93,7 +93,7 @@ SOURCE
   context "With a default term extractor" do
 
     setup do
-      @te = TermExtractor.new()
+      @te = TermExtract.new()
     end
 
     should "extract terms from a document" do
