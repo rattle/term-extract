@@ -1,10 +1,10 @@
 # term_extractor - Term Extraction
 
-## DESCRIPTION:
+## Description:
 
 term_extractor extracts proper nouns (named things like 'Manchester United') from text documents.
 
-## USAGE:
+## Usage:
 
 An example extracting terms from a piece of content:
 
@@ -17,7 +17,7 @@ An example extracting terms from a piece of content:
 
     terms = TermExtractor.extract(content)
 
-## OPTIONS
+## Options
 
 The #extract method takes an (optional) options hash, that allows the term extractor behaviour to be modified.  The following options are available:
 
@@ -30,7 +30,7 @@ Sample usage:
 
     terms = TermExtractor.extract(content, :types => :nnp, :include_tags => true)
 
-## TERM EXTRACTION TYPES
+## Term Extraction Types
 
 By default, the term extractor attempts to extract both ordinary nouns and proper nouns, this behaviour can be configured using the #types option and specifying :all (for both), :nn (for ordinary nouns) or :nnp (for proper nouns).  These codes correspond to the relevent POS tags used during the term extraction process.  Sample usage is shown below:
 
@@ -44,13 +44,13 @@ By default, the term extractor attempts to extract both ordinary nouns and prope
 * Commit, do not mess with Rakefile, version, or history as it's handled by Jeweler.
 * Send me a pull request. I may or may not accept it.
 
-## ACKNOWLEDGEMENTS
+## Acknowledgements
 
 The algorithm and extraction code is based on the original python code at:
 
 http://pypi.python.org/pypi/topia.termextract/
 
-## COPYRIGHT AND LICENSE
+## Copyright and License
 
 GPL v3 - See LICENSE for details.
 Copyright (c) 2010, Rob Lee
