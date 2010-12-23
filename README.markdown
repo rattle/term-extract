@@ -8,14 +8,14 @@ term_extractor extracts proper nouns (named things like 'Manchester United') fro
 
 An example extracting terms from a piece of content:
 
-require 'term_extractor'
+    require 'term_extractor'
 
-content = <<DOC
-Business Secretary Vince Cable will stay in cabinet despite 
-"declaring war" on Rupert Murdoch, says Downing Street.
-DOC
+    content = <<DOC
+    Business Secretary Vince Cable will stay in cabinet despite
+    "declaring war" on Rupert Murdoch, says Downing Street.
+    DOC
 
-terms = TermExtractor.extract(content)
+    terms = TermExtractor.extract(content)
 
 ## OPTIONS
 
@@ -28,13 +28,13 @@ The #extract method takes an (optional) options hash, that allows the term extra
 
 Sample usage:
 
-terms = TermExtractor.extract(content, :types => :nnp, :include_tags => true)
+    terms = TermExtractor.extract(content, :types => :nnp, :include_tags => true)
 
 ## TERM EXTRACTION TYPES
 
 By default, the term extractor attempts to extract both ordinary nouns and proper nouns, this behaviour can be configured using the #types option and specifying :all (for both), :nn (for ordinary nouns) or :nnp (for proper nouns).  These codes correspond to the relevent POS tags used during the term extraction process.  Sample usage is shown below:
 
-terms = TermExtractor.extract(content, :types => :nnp)
+    terms = TermExtractor.extract(content, :types => :nnp)
 
 ## Note on Patches/Pull Requests
 
@@ -46,7 +46,7 @@ terms = TermExtractor.extract(content, :types => :nnp)
 
 ## ACKNOWLEDGEMENTS
 
-The algortithm and extraction code is based on the original python code at:
+The algorithm and extraction code is based on the original python code at:
 
 http://pypi.python.org/pypi/topia.termextract/
 
