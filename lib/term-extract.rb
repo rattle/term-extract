@@ -32,22 +32,13 @@ class TermExtract
 
   def extract(content)
 
-    tagger = @@TAGGER.nil? ? Brill::Tagger.new : @@TAGGER
-
     # Tidy content punctuation
     # Add a space after periods
     content.gsub!(/([A-Za-z0-9])\./, '\1. ')
-    # Add in full stops to tag list to allow multiterms to work
-    tags = []
-    tagger.tag(content).each do |tag|
-      if tag[0] =~ /\.$/
-        tag[0].chop!
-        tags.push tag
-        tags.push ['.', '.']
-      else
-         tags.push tag
-      end
-    end
+    
+    # Assign POS tags and tidy tag stack
+    tagger = @@TAGGER.nil? ? Brill::Tagger.new : @@TAGGER
+    tags = preprocess_tags(tagger.tag(content))
 
     # Set pos tags that identify nouns
     pos = "^NN"
@@ -79,7 +70,6 @@ class TermExtract
         multiterm << [term,tag]
       elsif state == @@NOUN and last_tag =~ /^(NNP|NNPS)$/ and tag == 'IN' and term =~ /(of|for|on|of\sthe|\&|d\'|du|de)/i
         # Allow preposition : "Secretary of State"
-        # Doesn't support "Chair of the Parades Commission"
         # Only use when in NNP mode
         multiterm << [term,tag]
       elsif state == @@NOUN and tag =~ /#{pos}/
@@ -115,6 +105,29 @@ class TermExtract
   end
 
   protected
+  def preprocess_tags(pos)
+    # Add in full stops to tag list to allow multiterms to work
+    tags = []
+    pos.each do |tag|
+      if tag[0] =~ /\.$/
+        tag[0].chop!
+        tags.push tag
+        tags.push ['.', '.']
+      else
+         tags.push tag
+      end
+    end
+    # Join certain prepositions together to allow them to be extracted
+    # e.g. allows 'News of the World' to be extracted
+    tags.each_with_index do |tag, index|
+      if tag[0] == 'of' && (index + 1) < tags.length && tags[index+1][0] == 'the'
+        tags[index][0] = 'of the'
+        tags.delete_at(index+1)
+      end
+    end
+    tags
+  end
+
   def add_term(term, tag, multiterm, terms)
     multiterm << ([term, tag])
     increment_term(term, tag, terms)
