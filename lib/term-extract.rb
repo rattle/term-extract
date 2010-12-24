@@ -27,6 +27,8 @@ class TermExtract
     @types = options.key?(:types) ? options.delete(:types) : :all
     # Include the extracted POS tags in the results
     @include_tags = options.key?(:include_tags) ? options.delete(:include_tags) : false
+    # Remove shorter terms that are part of larger ones
+    @collapse_terms = options.key?(:collapse_terms) ? options.delete(:collapse_terms) : true
     #@lazy = options.key?(:lazy) ? options.delete(:lazy) : false
   end
 
@@ -95,6 +97,16 @@ class TermExtract
       occur = terms[term][:occurances]
       strength = term.split(/ /).length
       terms.delete(term) unless ((strength == 1 and occur >= @min_occurance) or (strength >= @min_terms))
+    end
+
+    # Remove shorter terms that form part of larger terms
+    # This typically removes surname references when we already have a full name
+    if @collapse_terms
+      terms.each_key do |term1|
+        terms.each_key do |term2|
+          terms.delete(term2) if term1.length > term2.length && (term1 =~ /[^A-Za-z0-9]#{term2}$/ || term1 =~ /^#{term2}[^A-Za-z0-9]/)
+        end
+      end
     end
 
     # Filter out tags unless required

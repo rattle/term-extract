@@ -1,4 +1,5 @@
 require 'helper'
+require 'pp'
 
 class TestTermExtract < Test::Unit::TestCase
 
@@ -72,7 +73,7 @@ SOURCE
     'Palestinians hope',
     'Richard Makepeace',
     'court order',
-    'event',
+    #'event',
     'literature festival',
     'peace accords',
     'police notice',
@@ -108,17 +109,19 @@ SOURCE
       assert terms.keys.include?("St Paul's Cathedral")
     end
 
-    should "extract terms with joining words" do
+    should "extract terms with prepositions" do
       terms = @te.extract(@@DOC2)
       assert terms.keys.include?("Secretary of State Owen Paterson")
     end
 
-    should "extract terms and include pos tags when configured to" do
-      @te.include_tags = true
-      terms = @te.extract(@@DOCUMENT)
-      term = terms.keys.first
-      assert terms[term].key?(:tag)
-      assert terms[term][:tag]
+    should "extract terms with long prepositions" do
+      terms = @te.extract(@@DOC2)
+      assert terms.keys.include?("Chair of the Parades Commission for Northern Ireland")
+    end
+
+    should "collapse duplicate terms" do
+      terms = @te.extract(@@DOC2)
+      assert !terms.keys.include?("event")
     end
 
     should "extract common nouns when configured to" do
@@ -162,8 +165,9 @@ SOURCE
 
       should "include pos tags in the results" do
         terms = @te.extract(@@DOCUMENT)
-        assert terms.keys.include?("Jerusalem")
-        assert terms['Jerusalem'][:tag] == 'NNP'
+        term = terms.keys.first
+        assert terms[term].key?(:tag)
+        assert terms[term][:tag]
       end
 
     end

@@ -25,6 +25,7 @@ The #extract method takes an (optional) options hash, that allows the term extra
 * min_terms - Always include multiword terms that comprise more than @min_terms words, default 2
 * types - Extract proper nouns (:nnp) or nouns (:nn) or both (:all), default :all
 * include_tags - Include the extracted POS tags in the results, default false
+* collapse_terms - Remove shorter terms that are part of larger ones, default true
 
 Sample usage:
 
