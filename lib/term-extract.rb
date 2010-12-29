@@ -74,7 +74,7 @@ class TermExtract
         # Allow preposition : "Secretary of State"
         # Only use when in NNP mode
         multiterm << [term,tag]
-      elsif state == @@NOUN and tag =~ /#{pos}/
+      elsif state == @@NOUN and tag =~ /^NN/
         # In noun mode, found a noun, add a multiterm noun
         add_term(term, tag, multiterm, terms)
       elsif state == @@NOUN and tag !=~ /#{pos}/
@@ -96,11 +96,14 @@ class TermExtract
     terms.each_key do |term|
       occur = terms[term][:occurances]
       strength = term.split(/ /).length
+      terms.delete(term) if occur < 1
       terms.delete(term) unless ((strength == 1 and occur >= @min_occurance) or (strength >= @min_terms))
     end
 
     # Remove shorter terms that form part of larger terms
     # This typically removes surname references when we already have a full name
+    # This doesn't test that the larger term has more occurrences than the smaller
+    # term as testing has shown issues with this approach
     if @collapse_terms
       terms.each_key do |term1|
         terms.each_key do |term2|
@@ -151,12 +154,16 @@ class TermExtract
     multiterm.each_with_index do |term, index|
       if (multiterm[index] == multiterm.last && term[1] == 'POS')
         # Don't add a final 's if it's the last term
+      elsif (multiterm[index] == multiterm.last && term[1] == 'IN' ||
+             multiterm[index] == multiterm.last && term[1] == 'JJ')
+        # Don't add a final preposition if it's the last term
       else
         # Don't require a space for POS type concats
         word+= term[1] == 'POS' ? term[0] : " #{term[0]}"
       end
     end
     word.lstrip!
+    # Add the term
     increment_term(word, 'NNP', terms)
   end
 

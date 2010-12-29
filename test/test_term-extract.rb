@@ -1,5 +1,4 @@
 require 'helper'
-require 'pp'
 
 class TestTermExtract < Test::Unit::TestCase
 
@@ -14,7 +13,10 @@ DOC1
 
   @@DOC2 = <<DOC2
 Secretary of State Owen Paterson has appointed Peter Osborne as Chair of the
-Parades Commission for Northern Ireland and six new Commission members.
+Parades Commission for Northern Ireland and six new Commission members.  Owen Paterson
+said Osborne was an excellent choice for the position.  Osborne was reported as
+saying he was delighted at the appointment and thanked Owen Paterson for the honour.
+Osborne then went on to outline his plans for the position.
 DOC2
 
   @@DOCUMENT = <<SOURCE
@@ -175,4 +177,3 @@ SOURCE
   end
 
 end
-
