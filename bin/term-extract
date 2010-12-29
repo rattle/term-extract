@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require 'yaml'
+require 'rubygems'
+$:.unshift(File.dirname(__FILE__) + "/../lib")
+require 'term-extract'
+
+types = :nnp
+types = ARGV.shift.to_sym if ARGV.length > 0
+
+pp TermExtract.extract($stdin.readlines.join(" "), :types => types).to_yaml
