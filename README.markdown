@@ -37,6 +37,12 @@ By default, the term extractor attempts to extract both ordinary nouns and prope
 
     terms = TermExtract.extract(content, :types => :nnp)
 
+## Command Line Tool
+
+There is a command line tool that can be used for testing the term extractor.  It is best used in conjunction with another tool to extract the relevent content (e.g. pismo) :
+
+    pismo http://www.bbc.co.uk/news/uk-politics-12085506 body | ruby -rubygems -e 'puts YAML.parse($stdin.read)[:body].value' | ./term-extract nnp | ruby -rubygems -e 'puts YAML.load($stdin.read)'
+
 ## Note on Patches/Pull Requests
 
 * Fork the project.
