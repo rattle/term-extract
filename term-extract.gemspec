@@ -5,12 +5,14 @@
 
 Gem::Specification.new do |s|
   s.name = %q{term-extract}
-  s.version = "0.4.0"
+  s.version = "0.5.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["rattle"]
-  s.date = %q{2010-12-24}
+  s.date = %q{2010-12-29}
+  s.default_executable = %q{term-extract}
   s.email = %q{robl@rjlee.net}
+  s.executables = ["term-extract"]
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.markdown"
@@ -23,6 +25,7 @@ Gem::Specification.new do |s|
     "README.markdown",
     "Rakefile",
     "VERSION",
+    "bin/term-extract",
     "lib/term-extract.rb",
     "term-extract.gemspec",
     "test/helper.rb",
