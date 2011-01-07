@@ -8,4 +8,4 @@ require 'term-extract'
 types = :nnp
 types = ARGV.shift.to_sym if ARGV.length > 0
 
-pp TermExtract.extract($stdin.readlines.join(" "), :types => types).to_yaml
+puts TermExtract.extract($stdin.readlines.join(" "), :types => types, :include_tags => true).to_yaml
