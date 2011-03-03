@@ -107,7 +107,8 @@ class TermExtract
     if @collapse_terms
       terms.each_key do |term1|
         terms.each_key do |term2|
-          terms.delete(term2) if term1.length > term2.length && (term1 =~ /[^A-Za-z0-9]#{term2}$/ || term1 =~ /^#{term2}[^A-Za-z0-9]/)
+          term2_subbed = term2.gsub(/([\*\+\.\?])/, '\\\\\1')
+          terms.delete(term2) if term1.length > term2.length && (term1 =~ /[^A-Za-z0-9]#{term2_subbed}$/ || term1 =~ /^#{term2_subbed}[^A-Za-z0-9]/)
         end
       end
     end
