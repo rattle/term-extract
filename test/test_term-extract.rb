@@ -175,5 +175,23 @@ SOURCE
     end
 
   end
+  
+  context 'when having regex characters in terms' do
+    should 'not break when * is involved' do
+      doc = 'Siam Square Soi 4, Rama 1 Rd, Pathum Wan, Bangkok, 10330 *Bangkok Trip'
+      assert_nothing_raised do
+        TermExtract.extract(doc) 
+      end
+    end
 
+    should 'not break when ? is involved' do
+      doc = <<EOF
+We sat and watched the very accommodating waitresses tend to a healthy traffic of middle-aged male Japanese patrons and wondered if we had somehow stumbled unwittingly into KL's version of a kyabakura.
+Nonbei is celebrating its anniversary this Wednesday, 25th November 2009 by offering a RM110++ deal for all-you-can-eat (drinks up till 10PM).
+EOF
+      assert_nothing_raised do
+        TermExtract.extract(doc) 
+      end
+    end
+  end    
 end

@@ -107,7 +107,7 @@ class TermExtract
     if @collapse_terms
       terms.each_key do |term1|
         terms.each_key do |term2|
-          terms.delete(term2) if term1.length > term2.length && (term1 =~ /[^A-Za-z0-9]#{term2}$/ || term1 =~ /^#{term2}[^A-Za-z0-9]/)
+          terms.delete(term2) if term1.length > term2.length && (term1 =~ /[^A-Za-z0-9]#{Regexp.escape(term2)}$/ || term1 =~ /^#{Regexp.escape(term2)}[^A-Za-z0-9]/)
         end
       end
     end
@@ -119,7 +119,7 @@ class TermExtract
     terms
   end
 
-  protected
+  protected  
   def preprocess_tags(pos)
     # Add in full stops to tag list to allow multiterms to work
     tags = []
