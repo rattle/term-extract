@@ -1,9 +1,20 @@
 # term_extract - Term Extract
 
+
 ## Description:
 
 term_extract extracts proper nouns (named things like 'Manchester United') and ordinary nouns (like 'event') from text documents.
 
+
+## Install:
+
+    gem install term-extract
+
+or with bundler:
+
+    #Gemfile:
+    gem 'term-extract'
+    
 ## Usage:
 
 An example extracting terms from a piece of content:
